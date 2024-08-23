@@ -12,8 +12,7 @@ class Subscription(metaclass=PoolMeta):
 
     pos = fields.Many2One('account.pos', 'Point of Sale',
         domain=[('pos_daily_report', '=', False)],
-        states={'readonly': Eval('state') != 'draft'},
-        depends=['state'])
+        states={'readonly': Eval('state') != 'draft'})
 
     @staticmethod
     def default_pos():
@@ -25,9 +24,11 @@ class Subscription(metaclass=PoolMeta):
     def _get_invoice(self):
         invoice = super()._get_invoice()
         if invoice:
+            invoice.save()
             invoice.pos = self.pos
             invoice.invoice_type = invoice.on_change_with_invoice_type()
             invoice.set_pyafipws_concept()
             invoice.invoice_date = None
             invoice.set_pyafipws_billing_dates()
+            invoice.save()
         return invoice
