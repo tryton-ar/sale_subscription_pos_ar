@@ -1,3 +1,9 @@
+Version 8.0.0 - 2026-07-16
+* Cambio de build system: setup.py → pyproject.toml (hatchling + hatch-tryton-ar)
+* Eliminación de Pool.register() en __init__.py
+* Agregar bloque [register] en tryton.cfg
+* Add scenario
+
 Version 7.0.0 - 2024-08-21
 * Bug fixes (see git logs for details)
 
